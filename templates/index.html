@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baly food | content intelligence</title>
+    <link rel="icon" href="path/to/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <div class="navbar-logo-mini"></div>
+            Baly food & content intelligence
+        </a>
+        <ul class="nav-links">
+            <li><a href="/" class="active">الرئيسية</a></li>
+            <li><a href="/pdf-convert">تحويل PDF</a></li>
+            <li><a href="/google-sheets">جوجل شيت</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <div class="hero-section">
+            <div class="hero-logo"></div>
+            <h1 class="hero-title">Baly food</h1>
+            <p class="hero-subtitle">content intelligence</p>
+        </div>
+
+        <div class="features-grid">
+            <a href="/pdf-convert" class="feature-card">
+                <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                <h3 class="feature-title">تحويل PDF إلى صور</h3>
+                <p class="feature-description">
+                    استخراج الصور من ملفات الـ PDF وتسميتها تلقائياً بناءً على النصوص المجاورة بدقة متناهية، وتحويلها
+                    إلى صور عالية الجودة.
+                </p>
+            </a>
+
+            <a href="/google-sheets" class="feature-card">
+                <div class="feature-icon"><i class="fas fa-file-excel"></i></div>
+                <h3 class="feature-title">تحميل من جوجل شيت</h3>
+                <p class="feature-description">
+                    تحميل مجموعة صور بناءً على روابط من ملف Excel.
+                </p>
+            </a>
+
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-rights">
+                جميع حقوق البرنامج محفوظة لدى <span style="color:var(--accent-color);">شركة بلي x</span> &copy; <span
+                    id="currentYear"></span>
+            </div>
+            <div class="footer-developer">
+                برمجة وتصميم المبرمج: <strong>سجاد باسم هادي</strong>
+            </div>
+
+            <ul class="footer-social-links">
+                <li>
+                    <a href="https://www.instagram.com/baly_food?igsh=aDdsNjVnMmw5aG5v" title="انستكرام بلي فود">
+                        <i class="fab fa-instagram"></i>
+                        <span>Baly_food</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/baly_career?igsh=MTJlNTg5Y2FxMzd1cw==" title="انستكرام كاريير">
+                        <i class="fab fa-instagram"></i>
+                        <span>Baly_careers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/company/baly-iq/" title="لينكد إن">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="footer-bottom">
+            <p>إصدار البرنامج 1.0.0</p>
+        </div>
+    </footer>
+
+    <script>
+        // تحديث السنة تلقائياً في الفوتر
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

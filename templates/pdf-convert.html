@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baly food | content intelligence</title>
+    <link rel="icon" href="path/to/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <div class="navbar-logo-mini"></div>
+            Baly food & content intelligence
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/pdf-convert" class="active">تحويل PDF</a></li>
+            <li><a href="/google-sheets">جوجل شيت</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="service-container">
+            <h2 style="text-align:center; margin-bottom: 30px; color: var(--primary-color);">تحويل ملفات PDF إلى صور
+            </h2>
+
+            <form action="/pdf-convert" method="POST" enctype="multipart/form-data" id="pdfForm">
+                <div class="upload-section" onclick="document.getElementById('pdfInput').click()">
+                    <div class="service-icon"><i class="fas fa-file-pdf"></i></div>
+                    <p id="fileStatus">اسحب ملفات الـ PDF هنا أو انقر للاختيار</p>
+                    <input type="file" name="pdf_files" id="pdfInput" accept=".pdf" multiple style="display:none;"
+                        onchange="updateFileName(this)" required>
+                </div>
+
+                <div style="text-align:center; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">إرسال وبدء التحويل</button>
+                </div>
+            </form>
+
+            <div class="result-section" id="loadingSection" style="display: none;">
+                <div class="service-icon" style="color: var(--primary-color);"><i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <p style="font-weight: bold;">جاري معالجة الملفات واستخراج الصور... يرجى الانتظار</p>
+                <p style="font-size: 0.85rem; color: #666;">سيتم تحميل ملف ZIP تلقائياً عند الاكتمال.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-rights">
+                جميع حقوق البرنامج محفوظة لدى <span style="color:var(--primary-color);">شركة بلي</span> &copy; <span
+                    id="currentYear"></span>
+            </div>
+            <div class="footer-developer">
+                برمجة وتصميم المبرمج: <strong>سجاد باسم هادي</strong>
+            </div>
+            <ul class="footer-social-links">
+                <li>
+                    <a href="https://www.instagram.com/baly_food?igsh=aDdsNjVnMmw5aG5v" title="انستكرام بلي فود">
+                        <i class="fab fa-instagram"></i>
+                        <span>Baly_food</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/baly_career?igsh=MTJlNTg5Y2FxMzd1cw==" title="انستكرام كاريير">
+                        <i class="fab fa-instagram"></i>
+                        <span>Baly_careers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/company/baly-iq/" title="لينكد إن">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="footer-bottom">
+            <p>إصدار البرنامج 1.0.0 | استجابة سريعة وتصميم عصري</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // دالة تحديث اسم الملف عند الاختيار
+        function updateFileName(input) {
+            const statusText = document.getElementById('fileStatus');
+            if (input.files.length > 0) {
+                if (input.files.length === 1) {
+                    statusText.innerHTML = "✅ تم اختيار ملف: <br><strong>" + input.files[0].name + "</strong>";
+                } else {
+                    statusText.innerHTML = "✅ تم اختيار <strong>" + input.files.length + "</strong> ملفات";
+                }
+                statusText.style.color = "var(--primary-color)";
+            }
+        }
+
+        // دالة التحكم عند الإرسال (إظهار التحميل ثم التصفير)
+        document.getElementById('pdfForm').onsubmit = function () {
+            // إظهار رسالة جاري المعالجة
+            document.getElementById('loadingSection').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true; // تعطيل الزر لمنع التكرار
+
+            // التصفير والرجوع للصفر بعد 10 ثواني (وقت كافٍ لبدء المعالجة والتحميل)
+            setTimeout(() => {
+                document.getElementById('pdfForm').reset();
+                document.getElementById('fileStatus').innerHTML = "اسحب ملفات الـ PDF هنا أو انقر للاختيار";
+                document.getElementById('fileStatus').style.color = "";
+                document.getElementById('loadingSection').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+            }, 10000);
+        };
+    </script>
+</body>
+
+</html>

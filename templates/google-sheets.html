@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baly food | content intelligence</title>
+    <link rel="icon" href="path/to/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <div class="navbar-logo-mini"></div>
+            Baly food & content intelligence
+        </a>
+        <ul class="nav-links">
+            <li><a href="/">الرئيسية</a></li>
+            <li><a href="/pdf-convert">تحويل PDF</a></li>
+            <li><a href="/google-sheets" class="active">جوجل شيت</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="service-container">
+            <h2 style="text-align:center; margin-bottom: 30px; color: #27ae60;">تحميل الصور من روابط Excel</h2>
+
+            <form action="/google-sheets" method="POST" enctype="multipart/form-data" id="excelForm">
+                <div class="upload-section" onclick="document.getElementById('excelInput').click()">
+                    <div class="service-icon" style="color: #27ae60;"><i class="fas fa-file-excel"></i></div>
+                    <p id="fileStatus">ارفع ملف الإكسل (.xlsx) هنا</p>
+                    <input type="file" name="excel_file" id="excelInput" accept=".xlsx" style="display:none;"
+                        onchange="updateFileName(this)" required>
+                </div>
+
+                <div class="form-group">
+                    <label>اسم عمود العناصر (Item Name):</label>
+                    <input type="text" name="item_col" class="form-control" placeholder="مثال: item_name_ar" required>
+                </div>
+
+                <div class="form-group">
+                    <label>اسم عمود الروابط (Image URL):</label>
+                    <input type="text" name="link_col" class="form-control" placeholder="مثال: image_url" required>
+                </div>
+
+                <div style="text-align:center; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary" style="background-color: #27ae60;" id="submitBtn">
+                        <i class="fas fa-download"></i> بدء التحميل والضغط
+                    </button>
+                </div>
+            </form>
+
+            <div class="result-section" id="loadingSection" style="display: none;">
+                <div class="service-icon" style="color: #27ae60;"><i class="fas fa-sync fa-spin"></i></div>
+                <p style="font-weight: bold; color: #27ae60;">جاري جلب الصور وضغطها الآن... يرجى الانتظار</p>
+                <p style="font-size: 0.9rem; color: #666;">سيبدأ التحميل تلقائياً فور الانتهاء.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-rights">
+                جميع حقوق البرنامج محفوظة لدى <span style="color:var(--primary-color);">شركة بلي</span> &copy; <span
+                    id="currentYear"></span>
+            </div>
+            <div class="footer-developer">
+                برمجة وتصميم المبرمج: <strong>سجاد باسم هادي</strong>
+            </div>
+            <ul class="footer-social-links">
+                <li>
+                    <a href="https://www.instagram.com/baly_food?igsh=aDdsNjVnMmw5aG5v" title="انستكرام بلي فود">
+                        <i class="fab fa-instagram"></i>
+                        <span>Baly_food</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/baly_career?igsh=MTJlNTg5Y2FxMzd1cw==" title="انستكرام كاريير">
+                        <i class="fab fa-instagram"></i>
+                        <span>Baly_careers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/company/baly-iq/" title="لينكد إن">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="footer-bottom">
+            <p>إصدار البرنامج 1.0.0 | استجابة سريعة وتصميم عصري</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // دالة لإظهار اسم الملف المرفوع
+        function updateFileName(input) {
+            const statusText = document.getElementById('fileStatus');
+            if (input.files.length > 0) {
+                statusText.innerHTML = "✅ تم اختيار ملف: <br><strong>" + input.files[0].name + "</strong>";
+                statusText.style.color = "#27ae60";
+            }
+        }
+
+        // دالة التحكم عند الضغط على الزر مع العداد
+        document.getElementById('excelForm').onsubmit = function (e) {
+            // 1. إظهار قسم "جاري التحميل"
+            const loadingSection = document.getElementById('loadingSection');
+            loadingSection.style.display = 'block';
+
+            // إنشاء عنصر العداد داخل قسم التحميل إذا لم يكن موجوداً
+            let counterDisplay = document.getElementById('imageCounter');
+            if (!counterDisplay) {
+                counterDisplay = document.createElement('p');
+                counterDisplay.id = 'imageCounter';
+                counterDisplay.style.fontSize = '1.5rem';
+                counterDisplay.style.fontWeight = 'bold';
+                counterDisplay.style.color = '#27ae60';
+                counterDisplay.style.margin = '10px 0';
+                // إضافة العداد تحت الأيقونة المتحركة
+                loadingSection.insertBefore(counterDisplay, loadingSection.children[2]);
+            }
+
+            let count = 0;
+            counterDisplay.innerText = "عدد الصور المجهزة: " + count;
+
+            // محاكاة عداد يبدأ بالزيادة ليعطي انطباع الحركة
+            const interval = setInterval(() => {
+                count++;
+                counterDisplay.innerText = "جاري معالجة الصورة رقم: " + count;
+            }, 300); // سرعة العد (صورة كل 0.3 ثانية تقريباً)
+
+            // تصفير الفورم والرجوع للصفر بعد 10 ثواني أو عند اكتمال العملية
+            setTimeout(() => {
+                clearInterval(interval); // إيقاف العداد
+                document.getElementById('excelForm').reset();
+                document.getElementById('fileStatus').innerHTML = "ارفع ملف الإكسل (.xlsx) هنا";
+                document.getElementById('fileStatus').style.color = "";
+                loadingSection.style.display = 'none';
+            }, 12000); // زيادة الوقت قليلاً لضمان استجابة السيرفر
+        };
+    </script>
+</body>
+
+</html>

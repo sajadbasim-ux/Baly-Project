@@ -1,0 +1,279 @@
+/* static/css/style.css */
+
+:root {
+    --primary-color: #004dff;
+    --secondary-color: #f4f7f6;
+    /* خلفية رمادية فاتحة جداً لإبراز البياض */
+    --accent-color: #ffffff;
+    --text-color: #333333;
+    --white: #ffffff;
+    --border-color: #e1e8ed;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- الهيدر واللوجو --- */
+.navbar {
+    background-color: var(--primary-color);
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-logo-mini {
+    width: 35px;
+    height: 35px;
+    background-image: url('../images/logo.png');
+    /* حافظنا على المسار والاسم */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* --- تقليل حجم المربع العلوي (Hero) --- */
+/* --- تقليل حجم المربع العلوي (Hero) وإظهار اللوجو --- */
+.hero-section {
+    text-align: center;
+    padding: 50px 60px;
+    /* تم تقليل الحجم من 150px إلى 30px ليكون أنيقاً */
+    background-color: var(--white);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-logo {
+    width: 100px;
+    /* حجم متناسق مع المربع الصغير */
+    height: 100px;
+    margin-bottom: 15px;
+    background-color: transparent;
+    border-radius: 50%;
+    display: block;
+    /* لضمان أخذ المساحة المخصصة له */
+
+    /* تأكد من صحة هذا المسار ووجود الصورة في مجلد img */
+    background-image: url('../img/Baly\ food.jpg');
+    background-size: contain;
+    /* لجعل الصورة تظهر بالكامل دون قص */
+    background-repeat: no-repeat;
+    background-position: center;
+
+    /* إضافة حدود خفيفة لتمييز اللوجو إذا كانت خلفيته بيضاء */
+    border: 1px solid #f0f0f0;
+}
+
+.hero-title {
+    font-size: 1.6rem;
+    /* تصغير قليل ليتناسب مع الحجم الجديد */
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 0;
+}
+
+/* --- المربعات (البطاقات) تظهر واحدة بصف الثانية --- */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+}
+
+.features-grid {
+    display: flex;
+    /* تحويلها إلى flex لجعلها بجانب بعضها */
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    /* لضمان الترتيب في الشاشات الصغيرة */
+}
+
+.feature-card {
+    background: var(--white);
+    /* الواجهة البيضاء */
+    flex: 1;
+    /* تجعل المربعات تأخذ نفس العرض */
+    min-width: 300px;
+    /* أقل عرض للمربع الواحد */
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+/* --- تنسيقات الصفحات الداخلية --- */
+.service-container {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.upload-section {
+    border: 2px dashed #ccc;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    background: #fafafa;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: right;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* --- الفوتر --- */
+.footer {
+    background-color: var(--white);
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+}
+
+.result-section {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+
+
+/* تنسيق الروابط الاجتماعية في الفوتر - النسخة المصلحة */
+.footer-social-links {
+    list-style: none !important;
+    display: flex !important;
+    gap: 20px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.footer-social-links li a {
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    /* تغيير اللون للأزرق ليظهر على الخلفية البيضاء ويقاوم الـ Extension */
+    color: var(--primary-color) !important;
+    forced-color-adjust: none !important;
+}
+
+.footer-social-links li a span {
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    color: var(--primary-color) !important;
+}
+
+.footer-social-links li a i {
+    font-size: 1.2rem !important;
+    color: var(--primary-color) !important;
+    /* إضافة فلتر يمنع الـ Extension من عكس اللون */
+    filter: brightness(1) !important;
+}
+
+/* تأثير التمرير */
+.footer-social-links li a:hover {
+    opacity: 0.7;
+    transform: translateY(-2px);
+}
