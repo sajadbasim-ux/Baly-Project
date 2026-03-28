@@ -3,3 +3,14 @@ pandas
 requests
 openpyxl
 gunicorn
+io
+zipfile
+os
+re
+pdfplumber
+requests
+concurrent
+futures 
+ThreadPoolExecutor
+as_completed
+
